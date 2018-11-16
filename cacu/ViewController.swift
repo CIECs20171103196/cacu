@@ -43,6 +43,9 @@ class ViewController: UIViewController {
     @IBAction func b0(_ sender: Any) {
         result.text = result.text!+"0"
     }
+    @IBAction func point(_ sender: Any) {
+        result.text = result.text!+"."
+    }
     @IBAction func add(_ sender: Any) {
         operatorFlag = 1
         temp = Double (result.text!)!
@@ -63,6 +66,11 @@ class ViewController: UIViewController {
     }
     @IBAction func chu(_ sender: Any) {
         operatorFlag = 4
+        temp = Double (result.text!)!
+        result.text = ""
+    }
+    @IBAction func quyu(_ sender: Any) {
+        operatorFlag = 5
         temp = Double (result.text!)!
         result.text = ""
     }
