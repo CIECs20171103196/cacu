@@ -7,13 +7,14 @@
 //
 
 import UIKit
-
 class ViewController: UIViewController {
     var temp:Double=0
+    var temp1:Double=1
     var operatorFlag:Int=0
     @IBOutlet weak var result: UITextField!
     @IBAction func b1(_ sender: Any) {
         result.text = result.text!+"1"
+        
     }
     @IBAction func b2(_ sender: Any) {
         result.text = result.text!+"2"
@@ -48,25 +49,42 @@ class ViewController: UIViewController {
     }
     @IBAction func add(_ sender: Any) {
         operatorFlag = 1
-        temp = Double (result.text!)!
+        temp = temp + Double(result.text!)!
         result.text = ""
     }
     @IBAction func AC(_ sender: Any) {
         result.text = ""
+        temp = 0
+        temp1 = 1
     }
     @IBAction func sub(_ sender: Any) {
         operatorFlag = 2
-        temp = Double (result.text!)!
+        if(temp == 0){
+            temp1 = Double(result.text!)!
+            temp = 1
+        }
+        else{
+            temp1 = temp1 - Double(result.text!)!
+        }
+        
         result.text = ""
+        
     }
     @IBAction func mut(_ sender: Any) {
         operatorFlag = 3
-        temp = Double (result.text!)!
+        temp1 = temp1 * Double(result.text!)!
         result.text = ""
     }
     @IBAction func chu(_ sender: Any) {
         operatorFlag = 4
-        temp = Double (result.text!)!
+        if(temp == 0){
+            temp1 = Double(result.text!)!
+            temp = 1
+        }
+        else{
+            temp1 = temp1 / Double(result.text!)!
+        }
+        
         result.text = ""
     }
     @IBAction func quyu(_ sender: Any) {
@@ -79,23 +97,24 @@ class ViewController: UIViewController {
         {
             temp = temp + Double(result.text!)!
             result.text="\(temp)"
+            temp = 0
         }
         if operatorFlag == 2
         {
-            temp = temp - Double(result.text!)!
-            result.text="\(temp)"
+            temp1 = temp1 - Double(result.text!)!
+            result.text="\(temp1)"
         }
         if operatorFlag == 3
         {
-            temp = temp * Double(result.text!)!
-            result.text="\(temp)"
+            temp1 = temp1 * Double(result.text!)!
+            result.text="\(temp1)"
+            temp1 = 1
         }
         if operatorFlag == 4
         {
-            temp = temp * Double(result.text!)!
-            result.text="\(temp)"
+            temp1 = temp1 / Double(result.text!)!
+            result.text="\(temp1)"
         }
-        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
