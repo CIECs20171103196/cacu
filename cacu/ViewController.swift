@@ -83,35 +83,35 @@ class calculate {
     
     public func compare(x1:String,y1:Stack<Double>,z1:Stack<String>)
     {
-        var e:String = "0"
-        var a:Double = 0
-        var b:Double = 0
+        var str:String = "0"
+        var p1:Double = 0
+        var p2:Double = 0
         while(z1.IsEmpty() != 1&&judge(x: x1) < judge(x:z1.inspectTop()!)+1)
         {
-            e = z1.PopStack()!;
-            if e == "+"
+            str = z1.PopStack()!;
+            if str == "+"
             {
-                a = y1.PopStack()!;
-                b = y1.PopStack()!
-                y1.PushStack(x: a + b)
+                p1 = y1.PopStack()!;
+                p2 = y1.PopStack()!
+                y1.PushStack(x: p1 + p2)
             }
-            if e == "-"
+            if str == "-"
             {
-                a = y1.PopStack()!;
-                b = y1.PopStack()!
-                y1.PushStack(x: b - a)
+                p1 = y1.PopStack()!;
+                p2 = y1.PopStack()!
+                y1.PushStack(x: p2 - p1)
             }
-            if e == "*"
+            if str == "*"
             {
-                a = y1.PopStack()!;
-                b = y1.PopStack()!
-                y1.PushStack(x: a * b)
+                p1 = y1.PopStack()!;
+                p2 = y1.PopStack()!
+                y1.PushStack(x: p1 * p2)
             }
-            if e == "/"
+            if str == "/"
             {
-                a = y1.PopStack()!;
-                b = y1.PopStack()!
-                y1.PushStack(x: b / a)
+                p1 = y1.PopStack()!;
+                p2 = y1.PopStack()!
+                y1.PushStack(x: p2 / p1)
             }
             
         }
