@@ -7,139 +7,272 @@
 //
 
 import UIKit
+class Stack <T>{
+    var top:Int = -1
+    var num = [T]()
+    
+    public func IsEmpty()->Int
+    {
+        if top == -1{
+            return 1
+        }
+        else if top > -1{
+            return 0;
+        }
+        return -1
+    }
+    public func PushStack(x:T)->Int{
+        num.append(x)
+        top=top+1
+        return 1
+    }
+    public func PopStack()->T?{
+        let f=num.removeLast()
+        top=top-1
+        return f
+    }
+    public func inspectTop()->T?{
+        if(top == -1){
+            return nil;
+        }
+        else{
+            return num[top]
+        }
+    }
+    public func GetTop()->Int{
+        return top
+    }
+    public func DelStack() -> Int
+    {
+        while IsEmpty() != 1
+        {
+            PopStack()
+        }
+        return 1
+    }
+};
+
+class calculate {
+    var flag = 0
+    var y1 = Stack<Double>()
+    var z1 = Stack<String>()
+    public func judge(x:String)->Int
+    {
+        if x == "="
+        {
+            flag = 0
+        }
+        if x == "*"
+        {
+            flag = 4
+        }
+        if x == "/"
+        {
+            flag = 4
+        }
+        if x == "+"
+        {
+            flag = 2
+        }
+        if x == "-"
+        {
+            flag = 2
+        }
+        return flag
+    }
+    
+    public func compare(x1:String,y1:Stack<Double>,z1:Stack<String>)
+    {
+        var e:String = "0"
+        var a:Double = 0
+        var b:Double = 0
+        while(z1.IsEmpty() != 1&&judge(x: x1) < judge(x:z1.inspectTop()!)+1)
+        {
+            e = z1.PopStack()!;
+            if e == "+"
+            {
+                a = y1.PopStack()!;
+                b = y1.PopStack()!
+                y1.PushStack(x: a + b)
+            }
+            if e == "-"
+            {
+                a = y1.PopStack()!;
+                b = y1.PopStack()!
+                y1.PushStack(x: b - a)
+            }
+            if e == "*"
+            {
+                a = y1.PopStack()!;
+                b = y1.PopStack()!
+                y1.PushStack(x: a * b)
+            }
+            if e == "/"
+            {
+                a = y1.PopStack()!;
+                b = y1.PopStack()!
+                y1.PushStack(x: b / a)
+            }
+            
+        }
+        
+    }
+    
+};
+
 class ViewController: UIViewController {
-    var temp:Double=0
-    var temp1:Double=1
+    var stack1 = Stack<Double>()
+    var stack2 = Stack<String>()
+    var calcu = calculate()
+    var temp = 1.0
     var operatorFlag:Int=0
-    var port:Double=0
     @IBOutlet weak var result: UITextField!
+    @IBOutlet weak var result2: UITextField!
+   
     @IBAction func b1(_ sender: Any) {
         result.text = result.text!+"1"
-        port = Double(result.text!)!
+        result2.text = result2.text!+"1"
     }
     @IBAction func b2(_ sender: Any) {
         result.text = result.text!+"2"
-        port = Double(result.text!)!
+        result2.text = result2.text!+"2"
     }
     
     @IBAction func b3(_ sender: Any) {
         result.text = result.text!+"3"
-        port = Double(result.text!)!
+        result2.text = result2.text!+"3"
     }
     @IBAction func b4(_ sender: Any) {
         result.text = result.text!+"4"
-        port = Double(result.text!)!
+        result2.text = result2.text!+"4"
     }
     @IBAction func b5(_ sender: Any) {
         result.text = result.text!+"5"
-        port = Double(result.text!)!
+        result2.text = result2.text!+"5"
     }
     @IBAction func b6(_ sender: Any) {
         result.text = result.text!+"6"
-        port = Double(result.text!)!
+        result2.text = result2.text!+"6"
     }
     @IBAction func b7(_ sender: Any) {
         result.text = result.text!+"7"
-        port = Double(result.text!)!
+        result2.text = result2.text!+"7"
     }
     @IBAction func b8(_ sender: Any) {
         result.text = result.text!+"8"
-        port = Double(result.text!)!
+        result2.text = result2.text!+"8"
     }
     @IBAction func b9(_ sender: Any) {
         result.text = result.text!+"9"
-        port = Double(result.text!)!
+        result2.text = result2.text!+"9"
     }
     @IBAction func b0(_ sender: Any) {
         result.text = result.text!+"0"
-        port = Double(result.text!)!
-    }
-    @IBAction func point(_ sender: Any) {
-        result.text = result.text!+"."
+        result2.text = result2.text!+"0"
     }
     @IBAction func add(_ sender: Any) {
-        operatorFlag = 1
-        temp = temp + port
-        result.text = result.text!+"+"
-        port = 0
+        if result2.text != ""
+        {
+            stack1.PushStack(x: Double(result2.text!)!)
+            result2.text = ""
+        }
+        
+        if stack2.IsEmpty() == 1
+        {
+            stack2.PushStack(x: "+")
+        }
+        else
+        {
+            calcu.compare(x1: "+", y1: stack1, z1: stack2)
+            stack2.PushStack(x: "+")
+        }
+        
+        
+        result.text = result.text! + "+"
     }
     @IBAction func AC(_ sender: Any) {
         result.text = ""
-        temp = 0
-        temp1 = 1
+        result2.text = ""
+        stack1.DelStack()
+        stack2.DelStack()
     }
     @IBAction func sub(_ sender: Any) {
-        operatorFlag = 2
-        if(temp == 0){
-            temp1 = port
-            temp = 1
-        }
-        else{
-            temp1 = temp1 - port
+        if result2.text != ""
+        {
+            stack1.PushStack(x: Double(result2.text!)!)
+            result2.text = ""
         }
         
-        result.text = result.text!+"-"
+        if stack2.IsEmpty() == 1
+        {
+            stack2.PushStack(x: "-")
+        }
+        else
+        {
+            calcu.compare(x1: "-", y1: stack1, z1: stack2)
+            stack2.PushStack(x: "-")
+        }
         
+        
+        result.text = result.text! + "-"
     }
     @IBAction func mut(_ sender: Any) {
-        operatorFlag = 3
-        temp1 = temp1 * port
-        result.text = result.text!+"*"
-    }
-    @IBAction func chu(_ sender: Any) {
-        operatorFlag = 4
-        if(temp == 0){
-            temp1 = port
-            temp = 1
-        }
-        else{
-            temp1 = temp1 / port
+        if result2.text != ""
+        {
+            stack1.PushStack(x: Double(result2.text!)!)
+            result2.text = ""
         }
         
-        result.text = result.text!+"/"
+        if stack2.IsEmpty() == 1
+        {
+            stack2.PushStack(x: "*")
+        }
+        else
+        {
+            calcu.compare(x1: "*", y1: stack1, z1: stack2)
+            stack2.PushStack(x: "*")
+        }
+        
+        
+        result.text = result.text! + "*"
     }
-    @IBAction func quyu(_ sender: Any) {
-        operatorFlag = 5
-        temp = port
-        result.text = ""
+    @IBAction func chu(_ sender: Any) {
+        if result2.text != ""
+        {
+            stack1.PushStack(x: Double(result2.text!)!)
+            result2.text = ""
+        }
+        
+        if stack2.IsEmpty() == 1
+        {
+            stack2.PushStack(x: "/")
+        }
+        else
+        {
+            calcu.compare(x1: "/", y1: stack1, z1: stack2)
+            stack2.PushStack(x: "/")
+        }
+        
+        
+        result.text = result.text! + "/"
     }
+    
     @IBAction func buttonResult(_ sender: Any) {
-        if operatorFlag == 1
+        if result2.text != ""
         {
-            temp = temp + port
-            result.text="\(temp)"
-            port = temp
-            temp = 0
-            
+            stack1.PushStack(x: Double(result2.text!)!)
+            result2.text = ""
         }
-        if operatorFlag == 2
-        {
-            temp1 = temp1 - port
-            result.text="\(temp1)"
-            port = temp1
-            temp1 = 0
-        }
-        if operatorFlag == 3
-        {
-            temp1 = temp1 * port
-            result.text="\(temp1)"
-            temp1 = 1
-            port = temp1
-            temp1 = 0
-        }
-        if operatorFlag == 4
-        {
-            temp1 = temp1 / port
-            result.text="\(temp1)"
-            port = temp1
-            temp1 = 0
-        }
+        calcu.compare(x1: "=", y1: stack1, z1: stack2)
+        var t = stack1.PopStack()
+        
+        result.text = result.text! + "=" + "\(t ?? 0)"
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-
+    
+    
 }
 
